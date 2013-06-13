@@ -1,8 +1,8 @@
 package DamerauLevenshteinDistance
 
 import (
-	"testing"
 	"sort"
+	"testing"
 )
 
 func TestEmptySource(t *testing.T) {
@@ -58,7 +58,7 @@ func TestOneDeletion(t *testing.T) {
 }
 
 func TestStrings(t *testing.T) {
-	good := []string {
+	good := []string{
 		"cat",
 		"cat",
 		"cat",
@@ -69,7 +69,7 @@ func TestStrings(t *testing.T) {
 		"I love go.",
 	}
 
-	bad := []string {
+	bad := []string{
 		"cta",
 		"ca",
 		"tac",
@@ -80,7 +80,7 @@ func TestStrings(t *testing.T) {
 		"zzzzzzzzzz",
 	}
 
-	distances := []int {
+	distances := []int{
 		1,
 		1,
 		2,
@@ -107,10 +107,10 @@ func TestStrings(t *testing.T) {
 func TestSort(t *testing.T) {
 	reference := "cat"
 
-	list := DLStrings {
-		{ Reference: reference, Value: "cta" },
-		{ Reference: reference, Value: "dog" },
-		{ Reference: reference, Value: "cat" },
+	list := DLStrings{
+		{Reference: reference, Value: "cta"},
+		{Reference: reference, Value: "dog"},
+		{Reference: reference, Value: "cat"},
 	}
 
 	sort.Sort(list)

@@ -56,7 +56,7 @@ func Distance(source, target string) int {
 				scores[i+1][j+1] = Min(scores[i][j], Min(scores[i+1][j], scores[i][j+1])) + 1
 			}
 
-			scores[i+1][j+1] = Min(scores[i+1][j+1], scores[dict[cjo]][cost] + (i - dict[cjo] - 1) + 1 + (j - cost - 1))
+			scores[i+1][j+1] = Min(scores[i+1][j+1], scores[dict[cjo]][cost]+(i-dict[cjo]-1)+1+(j-cost-1))
 		}
 
 		dict[cio] = i
@@ -68,9 +68,9 @@ func Distance(source, target string) int {
 type DLStrings []DLString
 
 type DLString struct {
-	Computed bool
-	Distance int
-	Value string
+	Computed  bool
+	Distance  int
+	Value     string
 	Reference string
 }
 
@@ -95,4 +95,3 @@ func (s DLStrings) Less(i, j int) bool {
 func (s DLStrings) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
-
