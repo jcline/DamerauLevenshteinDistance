@@ -1,7 +1,5 @@
 package DamerauLevenshteinDistance
 
-//import "fmt"
-
 func Max(a, b int) (max int) {
 	max = a
 	if max < b {
@@ -48,20 +46,16 @@ func Distance(source, target string) int {
 		cost := 0
 		i = i + 1
 		for j, cj := range target {
-			//fmt.Printf("%v\n", scores)
 			cjo := cj
 			j = j + 1
 
 			if cio == cjo {
-				//fmt.Printf("1: %v:%v %v\n", i+1, j+1, scores[i][j])
 				scores[i+1][j+1] = scores[i][j]
 				cost = j
 			} else {
-				//fmt.Printf("2: %v:%v %v\n", i+1, j+1, Min(scores[i][j], Min(scores[i+1][j], scores[i][j+1])) + 1)
 				scores[i+1][j+1] = Min(scores[i][j], Min(scores[i+1][j], scores[i][j+1])) + 1
 			}
 
-			//fmt.Printf("3: %v:%v %v | %v\n", i+1, j+1, scores[i+1][j+1], Min(scores[i+1][j+1], scores[dict[cjo]][cost] + (i - dict[cjo] - 1) + 1 + (j - cost - 1)))
 			scores[i+1][j+1] = Min(scores[i+1][j+1], scores[dict[cjo]][cost] + (i - dict[cjo] - 1) + 1 + (j - cost - 1))
 		}
 
@@ -70,3 +64,35 @@ func Distance(source, target string) int {
 
 	return scores[len(source)+1][len(target)+1]
 }
+
+type DLStrings []DLString
+
+type DLString struct {
+	Computed bool
+	Distance int
+	Value string
+	Reference string
+}
+
+func (s DLStrings) Len() int {
+	return len(s)
+}
+
+func (s DLStrings) Less(i, j int) bool {
+	if !s[i].Computed {
+		s[i].Distance = Distance(s[i].Reference, s[i].Value)
+		s[i].Computed = true
+	}
+
+	if !s[j].Computed {
+		s[j].Distance = Distance(s[j].Reference, s[j].Value)
+		s[j].Computed = true
+	}
+
+	return s[i].Distance < s[j].Distance
+}
+
+func (s DLStrings) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+

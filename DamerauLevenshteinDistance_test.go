@@ -2,6 +2,7 @@ package DamerauLevenshteinDistance
 
 import (
 	"testing"
+	"sort"
 )
 
 func TestEmptySource(t *testing.T) {
@@ -100,5 +101,26 @@ func TestStrings(t *testing.T) {
 		if dist != distances[i] {
 			t.Error(dist, " not equal ", distances[i], bad[i], good[i])
 		}
+	}
+}
+
+func TestSort(t *testing.T) {
+	reference := "cat"
+
+	list := DLStrings {
+		{ Reference: reference, Value: "cta" },
+		{ Reference: reference, Value: "dog" },
+		{ Reference: reference, Value: "cat" },
+	}
+
+	sort.Sort(list)
+	if list[0].Value != "cat" {
+		t.Error(list[0].Value, " was not ", reference)
+	}
+	if list[1].Value != "cta" {
+		t.Error(list[1].Value, " was not ", "cta")
+	}
+	if list[2].Value != "dog" {
+		t.Error(list[2].Value, " was not ", "dog")
 	}
 }
